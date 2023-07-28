@@ -19,6 +19,19 @@ let highScore = 0;
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 console.log(secretNumber);
 
+// Handing Score fuction that takes message as a parameter and message is a string
+const scoreHandler = message => {
+  if (score === 0) {
+    document.querySelector('.message').textContent = '🤦‍♂️ GAME OVER';
+  } else {
+    document.querySelector('.message').textContent = message;
+    // decrease score by 1 for each wrong number check out
+    score -= 1;
+    // console.log(score);
+    document.querySelector('.score').textContent = score;
+  }
+};
+
 // check button EventHandler
 document.querySelector('.check').addEventListener('click', () => {
   // when we get a value from user interface its usually 'string'
@@ -42,47 +55,13 @@ document.querySelector('.check').addEventListener('click', () => {
       document.querySelector('.number').style.width = '35rem';
     }
   } else if (guess < secretNumber && Math.abs(guess - secretNumber) > 3) {
-    // check out if score equal to zero
-    if (score === 0) {
-      document.querySelector('.message').textContent = '🤦‍♂️ GAME OVER';
-    } else {
-      document.querySelector('.message').textContent = '⬆️ Too Low';
-      // decrease score by 1 for each wrong number check out
-      score -= 1;
-      console.log(score);
-      document.querySelector('.score').textContent = score;
-    }
+    scoreHandler('📈 Too Low');
   } else if (guess > secretNumber && Math.abs(guess - secretNumber) > 3) {
-    // check out if score equal to zero
-    if (score === 0) {
-      document.querySelector('.message').textContent = '🤦‍♂️ GAME OVER';
-    } else {
-      document.querySelector('.message').textContent = '⬇️ Too high';
-      // decrease score by 1 for each wrong number check out
-      score -= 1;
-      console.log(score);
-      document.querySelector('.score').textContent = score;
-    }
+    scoreHandler('📉 Too high');
   } else if (guess - secretNumber < 0 && Math.abs(guess - secretNumber) <= 3) {
-    if (score === 0) {
-      document.querySelector('.message').textContent = '🤦‍♂️ GAME OVER';
-    } else {
-      document.querySelector('.message').textContent = '⬆️ little Low';
-      // decrease score by 1 for each wrong number check out
-      score -= 1;
-      console.log(score);
-      document.querySelector('.score').textContent = score;
-    }
+    scoreHandler('⬆️ little Low');
   } else if (guess - secretNumber > 0 && Math.abs(guess - secretNumber) <= 3) {
-    if (score === 0) {
-      document.querySelector('.message').textContent = '🤦‍♂️ GAME OVER';
-    } else {
-      document.querySelector('.message').textContent = '⬇️ little High';
-      // decrease score by 1 for each wrong number check out
-      score -= 1;
-      console.log(score);
-      document.querySelector('.score').textContent = score;
-    }
+    scoreHandler('⬇️ little High');
   }
 });
 
